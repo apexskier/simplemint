@@ -48,13 +48,15 @@ class SimpleAccess(object):
         csrf = self._get_csrf(url)
 
         r = self.session.post(url, data={
-            'username': self.username,
-            'password': self.password,
+            'simple_username': self.username,
+            'simple_password': self.password,
             '_csrf': csrf
         })
         if r.status_code / 500 == 5:
             raise Exception()
         # TODO: check for invalid auth
+
+        return self
 
     def new_goal(self, name, target_amount, finish,
                  color_name='purple',
